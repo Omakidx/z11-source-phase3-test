@@ -2,7 +2,7 @@
 // fixed mode with /usr/bin/timeout and bounded stdout/stderr collection.
 // Never run this on the management host outside its pinned sandbox image.
 import { readdir, stat, unlink } from "node:fs/promises";
-import { createConnection } from "node:net";
+import { createConnection, isIP } from "node:net";
 
 export const NETWORK_TARGETS = Object.freeze(
   [
@@ -60,6 +60,48 @@ export function connectionOutcome(code: unknown): ConnectionOutcome {
   )
     ? "denied"
     : "inconclusive";
+}
+
+/**
+ * Name-resolution and redirect-follow verdicts for the network=none guest.
+ * An address answer is itself a failure; the only passing result is no answer
+ * or an explicit policy/route denial. A timeout proves nothing. This is guest
+ * self-report; the host observer must independently see no packet or DNS query.
+ */
+export type NameOutcome = "denied" | "resolved" | "inconclusive";
+const NO_ANSWER_CODES = [
+  "ENOTFOUND",
+  "EAI_NONAME",
+  "ECONNREFUSED",
+  "ESERVFAIL",
+  "ENETUNREACH",
+  "EHOSTUNREACH",
+  "EACCES",
+  "EPERM",
+];
+export function nameResolutionOutcome(code: unknown): NameOutcome {
+  if (code === "resolved") return "resolved";
+  const normalized = typeof code === "string" ? code.replace(/^DNS_/, "") : "";
+  return NO_ANSWER_CODES.includes(normalized) ? "denied" : "inconclusive";
+}
+
+/** Fixed, reserved-name rebinding probe: `.invalid` is never delegated (RFC 6761). */
+export const REBIND_NAME = "rebind.z11-acceptance.invalid";
+
+/** A redirect hop is allowed only as a literal host and port parsed from one fixed URL. */
+export function redirectHop(location: unknown): {
+  host: string;
+  port: number;
+} | null {
+  if (typeof location !== "string" || location.length > 128) return null;
+  try {
+    const url = new URL(location);
+    if (url.protocol !== "http:" || url.username || url.password) return null;
+    const host = url.hostname.replace(/^\[|\]$/g, "");
+    return isIP(host) ? { host, port: url.port ? Number(url.port) : 80 } : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function readOnlyRootProbe(

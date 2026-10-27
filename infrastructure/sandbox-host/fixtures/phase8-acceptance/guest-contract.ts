@@ -34,7 +34,7 @@ export const BOUNDS = Object.freeze({
   fdAttempts: 1100,
   tmpfsMiB: 16,
   inodeAttempts: 256,
-  waitMs: 10_000,
+  waitMs: 60_000,
   networkTargets: 6,
   rebindAttempts: 6,
   redirectHops: 3,

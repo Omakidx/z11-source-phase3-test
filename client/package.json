@@ -6,7 +6,8 @@
     "dev": "bun --bun next dev",
     "build": "bun --bun next build",
     "start": "bun --bun next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "z11:reproduce": "bun test lib/z11-repro"
   },
   "dependencies": {
     "next": "16.3.8",

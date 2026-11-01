@@ -1,0 +1,7 @@
+{
+  "name": "z11-source-phase3-test-root",
+  "private": true,
+  "scripts": {
+    "z11:reproduce": "bun test client/lib/z11-repro"
+  }
+}

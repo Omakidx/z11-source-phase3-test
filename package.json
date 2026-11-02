@@ -2,6 +2,6 @@
   "name": "z11-source-phase3-test-root",
   "private": true,
   "scripts": {
-    "z11:reproduce": "bun test client/lib/z11-repro"
+    "z11:reproduce": "bun run z11-hostile.ts"
   }
 }

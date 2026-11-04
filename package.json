@@ -1,7 +1,30 @@
 {
-  "name": "z11-source-phase3-test-root",
+  "name": "z11-phase4-vercel-nextjs-fixture",
+  "version": "0.1.0",
   "private": true,
+  "description": "Disposable Vercel + Next.js provider-adapter validation fixture for Z11 Phase 4.",
+  "packageManager": "bun@1.4.2",
+  "engines": {
+    "node": "24.x",
+    "bun": "1.4.2"
+  },
   "scripts": {
-    "z11:reproduce": "bun test client/lib/z11-repro"
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "15.5.26",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.1",
+    "@types/node": "22.20.4",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3"
   }
 }

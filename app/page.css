@@ -1,0 +1,53 @@
+:root {
+  color: #151515;
+  background: #f7f7f7;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  width: min(100% - 2rem, 44rem);
+  margin: 12vh auto;
+  padding: 2rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 1rem;
+  background: #fff;
+}
+
+h1 {
+  margin: 0.25rem 0 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #575757;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.75rem 1rem;
+  margin: 2rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e3e3e3;
+}
+
+dt {
+  font-weight: 600;
+}
+
+dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}

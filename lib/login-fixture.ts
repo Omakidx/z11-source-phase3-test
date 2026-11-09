@@ -111,8 +111,7 @@ export async function handleLoginFixtureRequest(
   if (!["/login", "/api/login", "/account", "/api/logout"].includes(path)) return undefined;
   const found = account(environment);
   if (!found) return new Response("Not found", { status: 404 });
-  // Phase 16 staging regression: the sign-in page is unavailable.
-  if (path === "/login" || path === "/api/login")
+  if (createControlledFailureResponse(environment).status === 503 && (path === "/login" || path === "/api/login"))
     return new Response("Service unavailable", { status: 503, headers: { "cache-control": "no-store" } });
 
   if (path === "/login" && request.method === "GET")

@@ -148,7 +148,7 @@ export async function handleNotesFixtureRequest(
       MAX_NOTES,
     );
   else if (action === "update" && text)
-    next = notes.map((note) => (note.id === id ? { ...note, text } : note));
+    next = notes; // Phase 17 regression: the update is accepted but never saved.
   else if (action === "delete") next = notes.filter((note) => note.id !== id);
   else if (action !== "create" && action !== "update")
     return new Response("Bad request", { status: 400 });

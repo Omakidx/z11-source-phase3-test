@@ -1,0 +1,7 @@
+import { handleNotesFixtureRequest } from "../../lib/notes-fixture";
+
+export const dynamic = "force-dynamic";
+
+export async function GET(request: Request) {
+  return (await handleNotesFixtureRequest(request, process.env)) ?? new Response("Not found", { status: 404 });
+}
